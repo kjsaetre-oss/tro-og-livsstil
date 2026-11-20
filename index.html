@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tro & Livsstil – ånd, sjel og kropp</title>
+<meta name="description" content="Gratis app for kristne som ønsker inspirasjon til å leve et helhetlig liv – der du tar vare på både ånd, sjel og kropp.">
+<meta property="og:title" content="Tro & Livsstil – ånd, sjel og kropp">
+<meta property="og:description" content="Gratis app for kristne som ønsker inspirasjon til å leve et helhetlig liv – der du tar vare på både ånd, sjel og kropp.">
+<meta property="og:image" content="https://tro-og-livsstil.no/bilder/hero.jpg">
+<meta name="theme-color" content="#f3f1ea">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#f3f1ea; --sand-2:#e8e6dc; --card:#fffefa; --ink:#18241e; --ink-2:#3f4d45; --muted:#6f7b73;
+    --lilla:#2f6046; --lilla-2:#3f7a5a; --lilla-soft:#e2eee6; --lilla-dyp:#14291f;
+    --gull:#b8862f; --gull-2:#e2bd72; --gull-soft:#f5ead2; --gronn:#2f6046; --gronn-soft:#e2eee6;
+    --line:rgba(24,36,30,.08); --radius:26px;
+    --shadow:0 1px 2px rgba(40,28,20,.04), 0 22px 44px -28px rgba(60,40,20,.38);
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; scroll-padding-top:80px; }
+  body{ margin:0; background:var(--sand); color:var(--ink); font:16px/1.65 'DM Sans', system-ui, -apple-system, sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; }
+  h1,h2,h3{ font-family:'DM Serif Display', Georgia, serif; font-weight:500; letter-spacing:-.02em; line-height:1.08; margin:0; }
+  h2{ font-size:clamp(32px, 4.6vw, 52px); }
+  h2 em, h1 em{ font-style:italic; font-weight:400; color:var(--lilla); }
+  h3{ font-size:23px; font-weight:600; letter-spacing:-.01em; }
+  p{ margin:0; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 22px; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:10px; font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--lilla-2); margin-bottom:18px; }
+  .eyebrow::before{ content:""; width:22px; height:1.5px; background:currentColor; opacity:.6; }
+  .center .eyebrow::after{ content:""; width:22px; height:1.5px; background:currentColor; opacity:.6; }
+  .lead{ font-size:18.5px; color:var(--ink-2); max-width:620px; }
+  section{ padding:110px 0; position:relative; }
+  .center{ text-align:center; } .center .lead{ margin-left:auto; margin-right:auto; }
+  .head{ margin-bottom:56px; }
+  .head .lead{ margin-top:18px; }
+  .i{ width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; flex:none; }
+  .tile{ width:52px; height:52px; border-radius:16px; display:grid; place-items:center; flex:none; }
+  .t-lilla{ background:var(--lilla-soft); color:var(--lilla); }
+  .t-gull{ background:var(--gull-soft); color:var(--gull); }
+  .t-gronn{ background:var(--gronn-soft); color:var(--gronn); }
+
+  /* Knapper */
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:15px 26px; border-radius:999px; font-weight:600; font-size:15.5px; text-decoration:none; border:0; cursor:pointer; transition:transform .18s ease, box-shadow .2s ease, background .2s; white-space:nowrap; }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn .i{ width:18px; height:18px; transition:transform .2s; }
+  .btn:hover .i{ transform:translateX(3px); }
+  .btn-primary{ background:var(--lilla); color:#fff; box-shadow:0 14px 30px -14px rgba(47,96,70,.8); }
+  .btn-primary:hover{ background:#244c37; }
+  .btn-ghost{ background:rgba(255,255,255,.7); color:var(--ink); box-shadow:inset 0 0 0 1px var(--line); backdrop-filter:blur(6px); }
+  .btn-light{ background:#fff; color:var(--lilla-dyp); }
+
+  /* Meny */
+  header.top{ position:fixed; inset:0 0 auto 0; z-index:50; transition:background .3s, box-shadow .3s; }
+  header.top.scrolled{ background:rgba(243,241,234,.88); backdrop-filter:saturate(1.4) blur(14px); -webkit-backdrop-filter:saturate(1.4) blur(14px); box-shadow:0 1px 0 var(--line); }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:74px; }
+  .brand{ display:flex; align-items:center; gap:11px; text-decoration:none; font-family:'DM Serif Display', serif; font-weight:600; font-size:21px; letter-spacing:-.01em; }
+  .brand-mark{ width:38px; height:38px; border-radius:12px; display:grid; place-items:center; color:#fff; background:#111111; box-shadow:0 8px 18px -8px rgba(0,0,0,.55); }
+  .brand-mark svg{ width:18px; height:18px; stroke:#fff; stroke-width:2.2; fill:none; stroke-linecap:round; }
+  .brand small{ display:block; font-family:'DM Sans', sans-serif; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:1px; }
+  .nav-links{ display:flex; align-items:center; gap:30px; font-size:15px; font-weight:500; }
+  .nav-links a{ text-decoration:none; color:var(--ink-2); position:relative; }
+  .nav-links a:not(.btn)::after{ content:""; position:absolute; left:0; right:0; bottom:-6px; height:1.5px; background:var(--lilla); transform:scaleX(0); transition:transform .2s; }
+  .nav-links a:not(.btn):hover::after{ transform:scaleX(1); }
+  .nav-links .btn{ padding:11px 20px; font-size:14.5px; color:#fff; }
+  .menu-btn{ display:none; background:rgba(255,255,255,.7); border:0; width:46px; height:46px; border-radius:14px; cursor:pointer; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line); }
+  @media (max-width:920px){
+    .menu-btn{ display:grid; place-items:center; }
+    .nav-links{ position:fixed; inset:74px 12px auto 12px; flex-direction:column; align-items:stretch; gap:0; background:var(--card); border-radius:22px; padding:10px 20px 20px; box-shadow:0 30px 60px -20px rgba(0,0,0,.3); display:none; }
+    .nav-links.open{ display:flex; }
+    .nav-links a{ padding:15px 4px; border-bottom:1px solid var(--line); font-size:17px; }
+    .nav-links a:not(.btn)::after{ display:none; }
+    .nav-links .btn{ margin-top:16px; border:0; }
+  }
+
+  /* Hero */
+  .hero{ padding:150px 0 110px; overflow:hidden; }
+  .glow{ position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(42% 50% at 85% 18%, rgba(226,189,114,.38), transparent 70%),
+      radial-gradient(38% 45% at 70% 80%, rgba(63,122,90,.24), transparent 70%),
+      radial-gradient(35% 40% at 8% 30%, rgba(122,190,150,.22), transparent 70%); }
+  .grain::before{ content:""; position:absolute; inset:0; z-index:-1; opacity:.35; pointer-events:none; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .45 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .hero-grid{ display:grid; grid-template-columns:1.08fr .92fr; gap:64px; align-items:center; }
+  .hero h1{ font-size:clamp(44px, 6.6vw, 82px); }
+  .hero .lead{ margin:26px 0 36px; font-size:19.5px; }
+  .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-trust{ display:flex; align-items:center; gap:16px; margin-top:40px; }
+  .avatars{ display:flex; }
+  .avatars span{ width:40px; height:40px; border-radius:50%; border:3px solid var(--sand); margin-left:-10px; display:grid; place-items:center; font-size:13px; font-weight:700; color:#fff; }
+  .avatars span:first-child{ margin-left:0; }
+  .hero-trust p{ font-size:14.5px; color:var(--muted); line-height:1.4; }
+  .hero-trust b{ color:var(--ink); }
+  .hero-visual{ position:relative; }
+  .hero-photo{ border-radius:36px; overflow:hidden; aspect-ratio:4/5; box-shadow:0 40px 80px -40px rgba(20,40,30,.55); position:relative; transform:rotate(1.2deg); }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; }
+  .float{ position:absolute; background:rgba(255,253,249,.94); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-radius:22px; box-shadow:0 24px 50px -24px rgba(20,40,30,.5); }
+  .hero-verse{ right:-30px; bottom:46px; max-width:270px; padding:20px 22px; }
+  .hero-visual .hero-phone{ position:absolute; left:-56px; bottom:-40px; width:206px; padding:8px; border-radius:34px; z-index:2; animation:bob 6s ease-in-out infinite; }
+  .hero-visual .hero-phone::before{ top:15px; width:58px; height:16px; margin-left:-29px; }
+  .hero-visual .hero-phone .phone-screen{ border-radius:27px; }
+  .hero-visual .hero-phone .phone-screen img{ padding-top:26px; }
+  .hero-chips{ list-style:none; margin:40px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:10px 22px; }
+  .hero-chips li{ display:flex; align-items:center; gap:10px; font-size:15px; font-weight:600; color:var(--ink); }
+  .hero-chips .tile{ width:36px; height:36px; border-radius:12px; }
+  .hero-chips .tile .i{ width:18px; height:18px; }
+  .hero .reveal{ opacity:1; transform:none; }
+  .mobile-cta{ display:none; }
+  @media (max-width:720px){
+    .mobile-cta{ display:flex; position:fixed; left:0; right:0; bottom:0; z-index:60; padding:12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background:rgba(255,253,249,.94); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); box-shadow:0 -10px 30px -18px rgba(20,40,30,.45); transform:translateY(110%); transition:transform .3s ease; }
+    .mobile-cta.show{ transform:none; }
+    .mobile-cta .btn{ width:100%; }
+    .foot{ padding-bottom:96px; }
+  }
+  .hero-verse p{ font-family:'DM Serif Display', serif; font-style:italic; font-size:17.5px; line-height:1.42; }
+  .hero-verse small{ display:block; margin-top:10px; font-weight:600; color:var(--lilla-2); font-size:13px; letter-spacing:.02em; }
+  .hero-app{ right:-26px; top:46px; padding:14px 16px; width:220px; animation:bob 6s ease-in-out infinite; }
+  .hero-app .row{ display:flex; align-items:center; gap:10px; font-size:13.5px; font-weight:600; padding:6px 0; }
+  .hero-app .chk{ width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:var(--gronn); color:#fff; flex:none; }
+  .hero-app .chk .i{ width:13px; height:13px; stroke-width:3; }
+  .hero-app .row.todo .chk{ background:none; box-shadow:inset 0 0 0 2px #c9dccf; }
+  .hero-app small{ display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-8px) } }
+  @media (max-width:920px){
+    .hero{ padding-top:116px; padding-bottom:80px; }
+    .hero-grid{ grid-template-columns:1fr; gap:46px; }
+    .hero-verse{ display:none; }
+    .hero-visual{ max-width:520px; width:100%; margin:0 auto; padding-left:40px; }
+    .hero-photo{ transform:none; aspect-ratio:4/4.4; }
+    .hero-visual .hero-phone{ left:0; bottom:-30px; width:150px; padding:6px; border-radius:26px; }
+    .hero-visual .hero-phone::before{ top:11px; width:44px; height:12px; margin-left:-22px; }
+    .hero-visual .hero-phone .phone-screen{ border-radius:21px; }
+    .hero-visual .hero-phone .phone-screen img{ padding-top:20px; }
+  }
+
+  /* Ånd, sjel, kropp */
+  .pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .pillar{ border-radius:30px; padding:34px 32px 30px; position:relative; overflow:hidden; background:var(--card); box-shadow:var(--shadow); transition:transform .25s ease; }
+  .pillar:hover{ transform:translateY(-4px); }
+  .pillar::before{ content:""; position:absolute; inset:0 0 auto 0; height:5px; }
+  .pillar.p1::before{ background:linear-gradient(90deg,#3f7a5a,#9ccbb0); }
+  .pillar.p2::before{ background:linear-gradient(90deg,#b8862f,#e2bd72); }
+  .pillar.p3::before{ background:linear-gradient(90deg,#2f6046,#8fcfa8); }
+  .pillar .num{ position:absolute; right:26px; top:18px; font-family:'DM Serif Display', serif; font-size:72px; font-weight:400; color:rgba(24,36,30,.05); line-height:1; }
+  .pillar h3{ margin:22px 0 10px; font-size:30px; font-weight:500; }
+  .pillar p{ color:var(--ink-2); }
+  .pillar .verse{ margin-top:22px; padding-top:18px; border-top:1px dashed rgba(24,36,30,.14); font-family:'DM Serif Display', serif; font-style:italic; color:var(--muted); font-size:15.5px; }
+  @media (max-width:920px){ .pillars{ grid-template-columns:1fr; } }
+
+  /* Slik fungerer det */
+  .white{ background:var(--card); }
+  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .step{ border-radius:28px; overflow:hidden; background:var(--sand); display:flex; flex-direction:column; transition:transform .25s ease, box-shadow .25s; }
+  .step:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
+  .step-img{ aspect-ratio:16/11; overflow:hidden; background:var(--sand-2); }
+  .step-img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+  .step:hover .step-img img{ transform:scale(1.04); }
+  .step-body{ padding:28px; flex:1; }
+  .step-num{ display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:var(--gull); letter-spacing:.1em; text-transform:uppercase; }
+  .step h3{ margin:10px 0 10px; }
+  .step p{ color:var(--ink-2); }
+  .flow{ margin-top:70px; background:var(--sand); border-radius:30px; padding:40px; }
+  .flow-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; margin-bottom:28px; }
+  .flow-head h3{ font-size:30px; font-weight:500; }
+  .flow-head p{ color:var(--muted); }
+  .flow-steps{ display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative; }
+  .flow-steps::before{ content:""; position:absolute; left:10%; right:10%; top:22px; height:2px; background:repeating-linear-gradient(90deg, #bcd5c4 0 6px, transparent 6px 12px); }
+  .flow-steps div{ text-align:center; padding:0 10px; position:relative; }
+  .flow-steps b{ width:46px; height:46px; margin:0 auto 14px; border-radius:50%; display:grid; place-items:center; background:var(--card); color:var(--lilla); font-family:'DM Serif Display', serif; font-size:19px; font-weight:600; box-shadow:0 0 0 6px var(--sand), 0 8px 20px -8px rgba(47,96,70,.5); }
+  .flow-steps strong{ display:block; font-size:16px; }
+  .flow-steps span{ color:var(--muted); font-size:14px; line-height:1.45; display:block; margin-top:4px; }
+  @media (max-width:920px){
+    .steps{ grid-template-columns:1fr; }
+    .flow{ padding:30px 22px; }
+    .flow-steps{ grid-template-columns:1fr; gap:18px; }
+    .flow-steps::before{ left:22px; right:auto; top:10px; bottom:10px; width:2px; height:auto; background:repeating-linear-gradient(180deg, #bcd5c4 0 6px, transparent 6px 12px); }
+    .flow-steps div{ display:grid; grid-template-columns:46px 1fr; gap:0 16px; text-align:left; padding:0; }
+    .flow-steps b{ margin:0; grid-row:span 2; }
+  }
+
+  /* Appen */
+  .app-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  .features{ display:grid; gap:10px; margin-top:34px; }
+  .feature{ display:flex; gap:16px; align-items:flex-start; padding:18px; border-radius:20px; cursor:pointer; transition:background .25s, box-shadow .25s; position:relative; }
+  .feature.active{ background:var(--card); box-shadow:var(--shadow); }
+  .feature .tile{ width:46px; height:46px; border-radius:14px; }
+  .feature b{ display:block; font-size:16.5px; margin-bottom:2px; }
+  .feature span{ color:var(--ink-2); font-size:15px; }
+  .feature .bar{ position:absolute; left:18px; right:18px; bottom:8px; height:2px; border-radius:2px; background:var(--lilla-soft); overflow:hidden; opacity:0; }
+  .feature.active .bar{ opacity:1; }
+  .feature.active .bar::after{ content:""; position:absolute; inset:0; background:var(--lilla-2); transform-origin:left; animation:fill 4.5s linear forwards; }
+  @keyframes fill{ from{ transform:scaleX(0) } to{ transform:scaleX(1) } }
+  .phone-stage{ position:relative; display:grid; place-items:center; padding:30px 0; }
+  .phone-stage::before{ content:""; position:absolute; width:440px; height:440px; max-width:100%; border-radius:50%; background:radial-gradient(circle at 35% 35%, #e3efe5, #e9d6b8 70%); z-index:0; }
+  .phone{ position:relative; z-index:1; width:300px; border-radius:46px; padding:11px; background:#121815; box-shadow:0 50px 90px -40px rgba(20,40,30,.7), inset 0 0 0 2px #26332c; }
+  .phone::before{ content:""; position:absolute; top:20px; left:50%; width:84px; height:22px; margin-left:-42px; border-radius:999px; background:#121815; z-index:3; }
+  .phone-screen{ border-radius:36px; overflow:hidden; background:#fff; aspect-ratio:322/600; position:relative; }
+  .phone-screen img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top; opacity:0; transform:scale(1.03); transition:opacity .5s ease, transform .6s ease; padding-top:34px; background:#faf7f2; }
+  .phone-screen img.on{ opacity:1; transform:none; }
+  .phone-screen .slide{ position:absolute; inset:0; padding-top:34px; background:#f6f2ec; opacity:0; transition:opacity .5s ease; }
+  .phone-screen .slide.on{ opacity:1; }
+  .phone-screen .slide img{ position:static; opacity:1; transform:none; padding:0; height:auto; width:100%; }
+  .mock-habits{ padding:4px 14px 0; font-family:'DM Sans', sans-serif; }
+  .mock-habits b{ display:block; font-size:13px; font-weight:800; margin:2px 0 8px; color:#18201c; }
+  .mh{ display:flex; align-items:center; gap:9px; background:#fff; border-radius:12px; padding:9px 10px; margin-bottom:6px; font-size:11.5px; font-weight:600; color:#18201c; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+  .mh span{ width:16px; height:16px; border-radius:50%; box-shadow:inset 0 0 0 1.6px #c3d6ca; flex:none; }
+  .mh.done span{ background:#356b4f url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/10px no-repeat; box-shadow:none; }
+  .mh.done{ color:#7c877f; }
+  .mh em{ margin-left:auto; font-style:normal; font-size:10px; color:#3f7a5a; font-weight:700; }
+
+  /* Ekte skjermbilder fra appen */
+  .phone-screen{ background:#f4f3ee; }
+  .phone-screen img, .hero-visual .hero-phone .phone-screen img{ padding-top:0; background:#f4f3ee; }
+  .mini{ width:62%; height:100%; margin:0 auto; overflow:hidden; border-radius:22px 22px 0 0; background:#f4f3ee; box-shadow:0 14px 34px -12px rgba(20,40,30,.45); }
+  .step-img .mini img{ width:100%; height:auto; display:block; }
+  .step-img.has-mini{ display:flex; align-items:flex-end; padding:26px 0 0; }
+  .chip-float{ position:absolute; z-index:2; padding:12px 16px; font-size:13.5px; font-weight:600; display:flex; align-items:center; gap:10px; }
+  .chip-float.c1{ left:0; top:52%; }
+  .chip-float.c2{ right:0; bottom:110px; }
+  @media (max-width:1020px){ .app-grid{ grid-template-columns:1fr; gap:40px; } .chip-float.c1{ left:2%; } .chip-float.c2{ right:2%; } }
+  @media (max-width:520px){ .phone{ width:262px; } .chip-float{ display:none; } }
+
+  /* Mat og trening */
+  .duo{ display:grid; grid-template-columns:1.1fr .9fr; gap:22px; }
+  .duo-card{ position:relative; border-radius:32px; overflow:hidden; min-height:560px; color:#fff; display:flex; flex-direction:column; justify-content:flex-end; padding:38px; box-shadow:var(--shadow); }
+  .duo-card > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; transition:transform .8s ease; }
+  .duo-card:hover > img{ transform:scale(1.04); }
+  .duo-card::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,20,15,.05) 0%, rgba(10,20,15,.55) 40%, rgba(10,20,15,.92) 82%); z-index:1; }
+  .duo-card > div{ position:relative; z-index:2; }
+  .duo-card .eyebrow{ color:var(--gull-2); }
+  .duo-card h3{ font-size:34px; font-weight:500; color:#fff; }
+  .duo-card p{ color:rgba(255,255,255,.85); margin-top:12px; max-width:460px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+  .tags span{ font-size:13.5px; padding:8px 13px; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(6px); }
+  .stat{ font-family:'DM Serif Display', serif; font-size:78px; font-weight:500; line-height:.9; color:#fff; letter-spacing:-.03em; }
+  @media (max-width:920px){ .duo{ grid-template-columns:1fr; } .duo-card{ min-height:470px; padding:28px; } .stat{ font-size:62px; } }
+
+  /* Bibelvers-bånd */
+  .verse-band{ background:var(--lilla-dyp); color:#fff; overflow:hidden; text-align:center; padding:120px 0; }
+  .verse-band::before{ content:""; position:absolute; inset:0; background:radial-gradient(50% 70% at 50% 0%, rgba(63,122,90,.55), transparent 70%), radial-gradient(40% 60% at 90% 100%, rgba(192,138,54,.35), transparent 70%); }
+  .verse-band .wrap{ position:relative; }
+  .verse-band blockquote{ margin:0 auto; max-width:900px; font-family:'DM Serif Display', serif; font-weight:400; font-size:clamp(28px, 4.2vw, 48px); line-height:1.22; letter-spacing:-.015em; }
+  .verse-band blockquote em{ color:var(--gull-2); }
+  .verse-band cite{ display:block; margin-top:26px; font-style:normal; font-size:14px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.6); }
+
+  /* Kurs */
+  .course{ background:linear-gradient(140deg, #11241b 0%, #24503a 55%, #3f7a5a 100%); color:#fff; border-radius:40px; padding:70px; display:grid; grid-template-columns:1fr 1fr; gap:56px; overflow:hidden; position:relative; }
+  .course::after{ content:""; position:absolute; width:520px; height:520px; right:-160px; top:-200px; border-radius:50%; background:radial-gradient(circle, rgba(226,189,114,.35), transparent 65%); pointer-events:none; }
+  .course > *{ position:relative; z-index:1; }
+  .course .eyebrow{ color:var(--gull-2); }
+  .course h2{ color:#fff; font-size:clamp(40px, 5.5vw, 64px); }
+  .course .lead{ color:rgba(255,255,255,.82); margin:20px 0 30px; }
+  .course-weeks{ display:grid; gap:10px; }
+  .course-weeks div{ display:flex; gap:16px; align-items:center; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:14px 18px; transition:background .2s, transform .2s; }
+  .course-weeks div:hover{ background:rgba(255,255,255,.12); transform:translateX(4px); }
+  .course-weeks b{ flex:none; width:40px; height:40px; border-radius:12px; display:grid; place-items:center; background:rgba(226,189,114,.18); color:var(--gull-2); font-family:'DM Serif Display', serif; font-size:17px; }
+  .course-weeks span{ font-size:15.5px; font-weight:600; }
+  .course-weeks small{ display:block; color:rgba(255,255,255,.62); font-size:13.5px; font-weight:400; }
+  .course-incl{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:34px; }
+  .course-incl span{ display:inline-flex; align-items:center; gap:8px; font-size:13.5px; padding:8px 13px; border-radius:999px; background:rgba(255,255,255,.1); }
+  .course-incl .i{ width:16px; height:16px; color:var(--gull-2); }
+  @media (max-width:920px){ .course{ grid-template-columns:1fr; padding:40px 24px; border-radius:30px; } }
+
+  /* Temaer som liste */
+  .themes-grid{ display:grid; grid-template-columns:.8fr 1.2fr; gap:70px; align-items:start; }
+  .themes-grid .sticky{ position:sticky; top:110px; }
+  .theme-list{ border-top:1px solid var(--line); }
+  .theme-row{ display:grid; grid-template-columns:160px 1fr; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); transition:padding .25s; }
+  .theme-row:hover{ padding-left:10px; }
+  .theme-row b{ font-family:'DM Serif Display', serif; font-size:28px; font-weight:500; line-height:1.1; }
+  .theme-row p{ color:var(--ink-2); }
+  .theme-row q{ display:block; margin-top:8px; font-family:'DM Serif Display', serif; font-style:italic; color:var(--lilla); font-size:17px; quotes:"«" "»"; }
+  .theme-row small{ color:var(--muted); font-size:13px; }
+  @media (max-width:920px){ .themes-grid{ grid-template-columns:1fr; gap:30px; } .themes-grid .sticky{ position:static; } .theme-row{ grid-template-columns:1fr; gap:6px; } }
+
+  /* Verktøy */
+  .tools{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .tool{ background:var(--sand); border-radius:24px; padding:28px; transition:transform .25s, background .25s, box-shadow .25s; }
+  .tool:hover{ transform:translateY(-4px); background:var(--card); box-shadow:var(--shadow); }
+  .tool b{ display:block; font-size:19px; margin:18px 0 6px; font-family:'DM Serif Display', serif; font-weight:600; }
+  .tool p{ color:var(--ink-2); font-size:15px; }
+  @media (max-width:920px){ .tools{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:580px){ .tools{ grid-template-columns:1fr; } }
+
+  /* Verd å vite */
+  .articles{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:40px; }
+  .article{ display:flex; gap:20px; align-items:flex-start; background:var(--sand); border-radius:24px; padding:28px; }
+  .article b{ font-family:'DM Serif Display', serif; font-size:22px; font-weight:600; }
+  .article p{ color:var(--ink-2); font-size:15px; margin-top:6px; }
+  .article small{ display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-size:12.5px; font-weight:600; color:var(--lilla-2); }
+  .article small .i{ width:14px; height:14px; }
+  @media (max-width:800px){ .articles{ grid-template-columns:1fr; } }
+
+  /* Priser */
+  .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:stretch; }
+  .plan{ background:var(--card); border-radius:30px; padding:36px 32px; display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow); }
+  .plan.featured{ background:linear-gradient(160deg, #1d3a2c, #18241e 70%); color:#fff; transform:translateY(-14px); box-shadow:0 50px 80px -40px rgba(16,34,26,.8); }
+  .plan-badge{ position:absolute; top:-14px; left:32px; background:linear-gradient(90deg, var(--gull), var(--gull-2)); color:#2a1b10; font-size:12.5px; font-weight:700; padding:7px 14px; border-radius:999px; letter-spacing:.03em; }
+  .plan h3{ font-size:25px; font-weight:500; }
+  .plan .desc{ color:var(--muted); font-size:14.5px; margin-top:6px; }
+  .plan.featured .desc{ color:rgba(255,255,255,.62); }
+  .price{ margin:28px 0 26px; font-family:'DM Serif Display', serif; font-size:58px; font-weight:500; line-height:1; letter-spacing:-.03em; }
+  .price small{ font-family:'DM Sans', sans-serif; font-size:15px; font-weight:500; color:var(--muted); letter-spacing:0; }
+  .plan.featured .price small{ color:rgba(255,255,255,.55); }
+  .plan ul{ list-style:none; padding:24px 0 0; margin:0 0 30px; display:grid; gap:12px; flex:1; border-top:1px solid var(--line); }
+  .plan.featured ul{ border-color:rgba(255,255,255,.12); }
+  .plan li{ display:flex; gap:11px; font-size:15px; }
+  .plan li .i{ width:20px; height:20px; padding:3px; border-radius:50%; background:var(--gronn-soft); color:var(--gronn); stroke-width:3; }
+  .plan.featured li .i{ background:rgba(226,189,114,.18); color:var(--gull-2); }
+  .plan .btn{ width:100%; }
+  .plan.featured .btn-primary{ background:#fff; color:var(--ink); box-shadow:none; }
+  .install{ max-width:760px; margin-top:56px; text-align:center; }
+  .install h3{ font-size:26px; margin-bottom:22px; }
+  .install-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; text-align:left; }
+  .install-card{ background:var(--card); border-radius:22px; padding:22px 24px; box-shadow:var(--shadow); min-width:0; }
+  .install-card b{ display:block; font-size:16px; margin-bottom:10px; color:var(--lilla); }
+  .install-card ol{ margin:0; padding-left:20px; display:grid; gap:8px; color:var(--ink-2); font-size:15px; }
+  .install-note{ margin-top:18px; color:var(--muted); font-size:15px; }
+  @media (max-width:640px){ .install-grid{ grid-template-columns:1fr; } }
+  .price-note{ text-align:center; color:var(--muted); font-size:15px; margin-top:34px; }
+  .price-note a{ color:var(--lilla); font-weight:600; }
+  @media (max-width:920px){ .plans{ grid-template-columns:1fr; gap:30px; } .plan.featured{ transform:none; } }
+
+  /* Om meg */
+  .about{ display:grid; grid-template-columns:340px 1fr; gap:72px; align-items:center; max-width:1000px; }
+  .about-photo{ max-width:340px; }
+  .about-photo{ position:relative; }
+  .about-photo .frame{ border-radius:36px; overflow:hidden; background:linear-gradient(160deg, #dfece3, #f3e3c6); aspect-ratio:1/1.05; box-shadow:var(--shadow); }
+  .about-photo img{ width:100%; height:100%; object-fit:cover; mix-blend-mode:multiply; }
+  .about-tag{ right:-22px; bottom:30px; padding:16px 20px; font-size:14px; }
+  .about-tag b{ display:block; font-size:16px; font-family:'DM Serif Display', serif; font-weight:600; }
+  .about p + p{ margin-top:14px; }
+  .about .lead{ margin:20px 0 16px; }
+  .signature{ font-family:'DM Serif Display', serif; font-style:italic; font-size:30px; color:var(--lilla); margin-top:26px; }
+  .creds{ display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+  .creds span{ display:inline-flex; align-items:center; gap:8px; padding:9px 15px; border-radius:999px; background:var(--card); box-shadow:inset 0 0 0 1px var(--line); font-size:14px; font-weight:500; }
+  .creds .i{ width:17px; height:17px; color:var(--lilla-2); }
+  @media (max-width:920px){ .about{ grid-template-columns:1fr; gap:40px; } .about-photo{ max-width:260px; } .about-tag{ right:-14px; } }
+
+  /* Erfaringer */
+  .quotes-sec{ background:linear-gradient(180deg, var(--sand) 0%, #e4efe7 100%); }
+  .quotes{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .quote{ margin:0; background:var(--card); border-radius:32px; padding:44px 40px 36px; box-shadow:var(--shadow); position:relative; display:flex; flex-direction:column; }
+  .quote .mark{ font-family:'DM Serif Display', serif; font-size:110px; line-height:.6; color:var(--gull-2); height:46px; }
+  .quote p{ font-family:'DM Serif Display', serif; font-size:20.5px; line-height:1.5; flex:1; }
+  .quote footer{ margin-top:28px; display:flex; align-items:center; gap:14px; font-weight:600; }
+  .quote footer span{ width:46px; height:46px; border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:700; font-size:14px; }
+  .quote footer small{ display:block; font-weight:400; color:var(--muted); font-size:13.5px; }
+  .stars{ display:flex; gap:3px; color:var(--gull); margin-bottom:16px; }
+  .stars .i{ width:17px; height:17px; fill:currentColor; stroke:none; }
+  @media (max-width:920px){ .quotes{ grid-template-columns:1fr; } .quote{ padding:34px 24px 28px; } }
+
+  /* Spørsmål */
+  .faq-grid{ display:grid; grid-template-columns:.8fr 1.2fr; gap:70px; align-items:start; }
+  .faq{ display:grid; gap:12px; }
+  details{ background:var(--card); border-radius:20px; padding:4px 24px; box-shadow:var(--shadow); transition:background .2s; }
+  summary{ cursor:pointer; list-style:none; padding:20px 0; font-weight:600; font-size:16.5px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{ content:""; flex:none; width:30px; height:30px; border-radius:50%; background:var(--lilla-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235a3a9e' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/14px no-repeat; transition:transform .25s; }
+  details[open] summary::after{ transform:rotate(45deg); }
+  details p{ padding:0 0 22px; color:var(--ink-2); }
+  @media (max-width:920px){ .faq-grid{ grid-template-columns:1fr; gap:30px; } }
+
+  /* Kontakt */
+  .contact{ background:var(--ink); color:#fff; border-radius:40px; padding:70px; display:grid; grid-template-columns:1fr 1fr; gap:56px; position:relative; overflow:hidden; }
+  .contact::before{ content:""; position:absolute; inset:0; background:radial-gradient(45% 60% at 0% 100%, rgba(63,122,90,.45), transparent 70%), radial-gradient(35% 50% at 100% 0%, rgba(192,138,54,.25), transparent 70%); pointer-events:none; }
+  .contact > *{ position:relative; }
+  .contact h2{ color:#fff; }
+  .contact .eyebrow{ color:#a9d4b9; }
+  .contact .lead{ color:rgba(255,255,255,.75); margin:18px 0 28px; }
+  .contact-line{ display:inline-flex; gap:12px; align-items:center; color:rgba(255,255,255,.9); text-decoration:none; font-weight:500; }
+  .contact-line span{ width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background:rgba(255,255,255,.08); }
+  form{ display:grid; gap:14px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:26px; padding:28px; }
+  label{ font-size:13.5px; font-weight:600; color:rgba(255,255,255,.75); display:grid; gap:7px; }
+  input, select, textarea{ font:inherit; font-size:16px; padding:14px 16px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; outline:none; transition:border-color .2s, background .2s; }
+  input:focus, select:focus, textarea:focus{ border-color:#9ccbb0; background:rgba(255,255,255,.1); }
+  select option{ color:#18241e; }
+  textarea{ min-height:120px; resize:vertical; }
+  .form-note{ font-size:13px; color:rgba(255,255,255,.5); }
+  @media (max-width:920px){ .contact{ grid-template-columns:1fr; padding:40px 22px; border-radius:30px; gap:36px; } form{ padding:20px; } }
+
+  footer.foot{ padding:56px 0 64px; color:var(--muted); font-size:14px; }
+  .foot-row{ display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:center; }
+  .foot-row nav{ display:flex; gap:22px; flex-wrap:wrap; }
+  .foot-row a{ text-decoration:none; }
+  .foot-row a:hover{ color:var(--lilla); }
+
+  /* Ingen kolonne skal kunne presse siden bredere enn skjermen */
+  .hero-grid > *, .pillars > *, .steps > *, .app-grid > *, .duo > *, .themes-grid > *, .tools > *, .articles > *, .article > div, .plans > *, .about > *, .quotes > *, .faq-grid > *, .contact > *, .course > * { min-width:0; }
+  input, select, textarea{ width:100%; min-width:0; }
+  h1, h2, h3, .article b, .theme-row b{ overflow-wrap:break-word; hyphens:auto; }
+  @media (max-width:560px){
+    .hero-app{ display:none; }
+    .hero{ padding-top:98px; padding-bottom:64px; }
+    .hero-grid{ gap:34px; }
+    .hero .eyebrow{ margin-bottom:12px; }
+    .hero h1{ font-size:42px; line-height:1.04; }
+    .hero .lead{ font-size:17px; line-height:1.55; margin:16px 0 24px; }
+    .hero-ctas .btn-primary{ width:100%; padding:17px 24px; font-size:16px; }
+    .hero-ctas .btn-ghost{ display:none; }
+    .hero-chips{ margin-top:20px; gap:8px; }
+    .hero-chips li{ gap:7px; font-size:14px; padding:6px 12px 6px 6px; background:var(--card); border-radius:999px; box-shadow:inset 0 0 0 1px var(--line); }
+    .hero-chips .tile{ width:26px; height:26px; border-radius:50%; }
+    .hero-chips .tile .i{ width:14px; height:14px; }
+    .hero-visual{ padding-left:28px; }
+    .hero-photo{ aspect-ratio:4/3.7; border-radius:28px; }
+    .hero-visual .hero-phone{ width:128px; bottom:-26px; }
+    .article{ flex-direction:column; gap:14px; padding:24px; }
+    .nav{ gap:12px; }
+    .brand small{ display:none; }
+  }
+
+  /* Inn-animasjon */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform:none; }
+  .d1{ transition-delay:.08s; } .d2{ transition-delay:.16s; } .d3{ transition-delay:.24s; }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } html{ scroll-behavior:auto; } .hero-app, .hero-phone{ animation:none; } .mobile-cta{ transition:none; } }
+  @media (max-width:600px){ section{ padding:80px 0; } .head{ margin-bottom:40px; } .verse-band{ padding:90px 0; } }
+
+  /* Skoggrønn: DM Serif Display har bare én vekt */
+  h1,h2,h3,.brand,.hero-verse p,.pillar .num,.pillar .verse,.stat,.verse-band blockquote,.course-weeks b,.tool b,.article b,.price,.about-tag b,.signature{ font-weight:400; letter-spacing:-.01em; }
+</style>
+</head>
+<body>
+
+<!-- Ikoner -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c2.2 3.6 5.5 5.6 5.5 10.2a5.5 5.5 0 0 1-11 0c0-2.6 1.4-4.3 2.6-5.7.4 2 1.5 3.2 2.7 3.2-.2-2.6-.3-5.1.2-7.7z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.1a4.2 4.2 0 0 1 7.5 2.7C19.5 15.4 12 20 12 20z"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14.5l2.2 2 4-4"/></symbol>
+    <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></symbol>
+    <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3.5 11.5h17a8.5 8.5 0 0 1-17 0zM9 8c0-1.5 1-2 1-3.5M13 8c0-1.5 1-2 1-3.5"/></symbol>
+    <symbol id="i-hpulse" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.1a4.2 4.2 0 0 1 7.5 2.7C19.5 15.4 12 20 12 20z"/><path d="M7.5 12h2.5l1.2-2.2 1.8 4 1.2-1.8h2.3"/></symbol>
+    <symbol id="i-wheel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.2"/><path d="M12 3.5v6.3M12 14.2v6.3M3.5 12h6.3M14.2 12h6.3"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c1.4-3.8 4.2-5.8 7.5-5.8s6.1 2 7.5 5.8"/></symbol>
+    <symbol id="i-brick" viewBox="0 0 24 24"><rect x="3" y="13.5" width="18" height="7" rx="1.5"/><path d="M3 17h18M9 13.5V17M15 17v3.5M6 13.5V8.5h12v5M12 8.5v5"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.8"/><circle cx="12" cy="12" r="1.2"/></symbol>
+    <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 21v-8.5M12 12.5C12 8.6 9.2 6.5 5 6.5c0 3.9 2.8 6 7 6zM12 14.5c0-3.9 2.8-6 7-6 0 3.9-2.8 6-7 6z"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 12c1.8-4 4.2-4 6 0s4.2 4 6 0 4.2-4 6 0"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.3"/><path d="M3 19.5c.9-3.3 3.2-5 6-5s5.1 1.7 6 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M16.5 14.4c2.3 0 4 1.3 4.6 4"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v10.5H9.5L4 20z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4.2-1L19 8.2 15.8 5 5 15.8z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4.5 5.5A2.5 2.5 0 0 1 7 3h12.5v15.5H7a2.5 2.5 0 0 0-2.5 2.5zM4.5 19V5.5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19.6l1-5.8-4.3-4.1 5.9-.8z"/></symbol>
+    <symbol id="i-cross" viewBox="0 0 24 24"><path d="M12 3.5v17M6 9h12"/></symbol>
+    <symbol id="i-lungs" viewBox="0 0 24 24"><path d="M12 4v7M12 11c-1.2 1-2 1.5-3 1.5M12 11c1.2 1 2 1.5 3 1.5M8.5 7.5C6 8 4 11.5 4 16c0 2.2 1.3 3.5 3 3.5 2.5 0 2.5-2.5 2.5-5V8.5M15.5 7.5C18 8 20 11.5 20 16c0 2.2-1.3 3.5-3 3.5-2.5 0-2.5-2.5-2.5-5V8.5"/></symbol>
+    <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.5" y="14" width="4.5" height="7" rx="2"/><rect x="16" y="14" width="4.5" height="7" rx="2"/></symbol>
+  </defs>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#"><span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M12 3.5v17M6 9h12"/></svg></span><span>Tro &amp; Livsstil<small>Ånd · sjel · kropp</small></span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Meny" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#slik">Slik fungerer det</a>
+      <a href="#appen">Appen</a>
+      <a href="#om">Om meg</a>
+      <a href="#kontakt">Kontakt</a>
+      <a class="btn btn-primary" href="https://tro-og-livsstil.mvt.so/" target="_blank" rel="noopener">Last ned gratis</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero grain">
+    <div class="glow"></div>
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">Gratis app</span>
+        <h1>Én app for tro, <em>helse og gode vaner</em></h1>
+        <p class="lead">For kristne som ønsker inspirasjon til å leve et helhetlig liv – der du tar vare på både ånd, sjel og kropp. Bibelen som lyd, bønn, vaner, trening og middager, samlet i én gratis app.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://tro-og-livsstil.mvt.so/" target="_blank" rel="noopener">Last ned appen gratis <svg class="i"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#appen">Se hva du får</a>
+        </div>
+        <ul class="hero-chips" aria-label="Dette får du i appen">
+          <li><span class="tile t-lilla"><svg class="i"><use href="#i-headphones"/></svg></span>Bibelen</li>
+          <li><span class="tile t-gull"><svg class="i"><use href="#i-calendar"/></svg></span>Vaner</li>
+          <li><span class="tile t-gronn"><svg class="i"><use href="#i-dumbbell"/></svg></span>Trening</li>
+          <li><span class="tile t-lilla"><svg class="i"><use href="#i-bowl"/></svg></span>Middager</li>
+          <li><span class="tile t-gull"><svg class="i"><use href="#i-users"/></svg></span>Fellesskap</li>
+        </ul>
+      </div>
+      <div class="hero-visual reveal d2">
+        <div class="hero-photo"><img src="bilder/hero.jpg" alt="Glad kvinne med blomst mot blå himmel"></div>
+        <div class="phone hero-phone" aria-hidden="true"><div class="phone-screen"><img class="on" src="bilder/app-hjem.jpg" alt=""></div></div>
+        <div class="float hero-verse">
+          <p>«Jeg takker deg fordi jeg er skapt på underfullt vis. Underfulle er dine verk, det vet jeg så vel.»</p>
+          <small>Salme 139,14</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÅND SJEL KROPP -->
+  <section id="hva" style="padding-top:40px">
+    <div class="wrap center head reveal">
+      <span class="eyebrow">Ånd, sjel og kropp</span>
+      <h2>Hele mennesket.<br><em>Hele livet.</em></h2>
+      <p class="lead">Gud har skapt deg som et helt menneske. Når troen, tankene og kroppen får henge sammen, blir endringene både lettere og mer varige. Appen gir deg inspirasjon til små, gode steg hver dag.</p>
+    </div>
+    <div class="wrap pillars">
+      <div class="pillar p1 reveal">
+        <span class="num">01</span>
+        <div class="tile t-lilla"><svg class="i"><use href="#i-flame"/></svg></div>
+        <h3>Ånd</h3>
+        <p>Tid med Gud i hverdagen. Bibelen, bønn og takknemlighet som gir ro, retning og en grunn under føttene.</p>
+        <p class="verse">«La dere forvandle ved at sinnet fornyes.» — Rom 12,2</p>
+      </div>
+      <div class="pillar p2 reveal d1">
+        <span class="num">02</span>
+        <div class="tile t-gull"><svg class="i"><use href="#i-heart"/></svg></div>
+        <h3>Sjel</h3>
+        <p>Tanker, følelser og vaner. Om frykt, selvbilde, motivasjon og mål – og hvordan du faktisk kommer i gang.</p>
+        <p class="verse">«Frykt ikke, for jeg er med deg.» — Jes 41,10</p>
+      </div>
+      <div class="pillar p3 reveal d2">
+        <span class="num">03</span>
+        <div class="tile t-gronn"><svg class="i"><use href="#i-pulse"/></svg></div>
+        <h3>Kropp</h3>
+        <p>Trening, kosthold, søvn og helse. Treningsprogram og middagsplan som passer livet ditt – ikke et perfekt liv.</p>
+        <p class="verse">«Kroppen deres er et tempel for Den hellige ånd.» — 1 Kor 6,19</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIK FUNGERER DET -->
+  <section class="white" id="slik">
+    <div class="wrap center head reveal">
+      <span class="eyebrow">Slik fungerer det</span>
+      <h2>Kom i gang<br><em>på tre enkle steg</em></h2>
+    </div>
+    <div class="wrap steps">
+      <article class="step reveal">
+        <div class="step-img has-mini" style="background:linear-gradient(140deg,#e6f0e8,#e3efe5)">
+          <div class="mini"><img src="bilder/app-hjem.jpg" alt="Appen: forsiden" loading="lazy"></div>
+        </div>
+        <div class="step-body">
+          <span class="step-num"><svg class="i" style="width:16px;height:16px"><use href="#i-arrow"/></svg>Gratis</span>
+          <h3>Last ned appen</h3>
+          <p>Trykk på «Last ned appen gratis». Appen åpnes i nettleseren, og så legger du den på hjemskjermen.</p>
+        </div>
+      </article>
+      <article class="step reveal d1">
+        <div class="step-img has-mini" style="background:linear-gradient(140deg,#e3efe5,#f3e3c6)">
+          <div class="mini"><img src="bilder/app-praksis.jpg" alt="Appen: middag, bønn og Bibelen" loading="lazy"></div>
+        </div>
+        <div class="step-body">
+          <span class="step-num"><svg class="i" style="width:16px;height:16px"><use href="#i-calendar"/></svg>Hver dag</span>
+          <h3>Din egen plan i appen</h3>
+          <p>Bønn, vaner, trening og middag – alt på ett sted. Du krysser av underveis og ser hvordan dagen går.</p>
+        </div>
+      </article>
+      <article class="step reveal d2">
+        <div class="step-img has-mini" style="background:linear-gradient(140deg,#f3e3c6,#e6f0e8)">
+          <div class="mini"><img src="bilder/app-helse-ny.jpg" alt="Appen: helsemålinger" loading="lazy"></div>
+        </div>
+        <div class="step-body">
+          <span class="step-num"><svg class="i" style="width:16px;height:16px"><use href="#i-pulse"/></svg>Over tid</span>
+          <h3>Se at det går framover</h3>
+          <p>Appen husker hvor langt du har kommet – vanene du holder, treningen du gjør og helsemålingene dine over tid.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- APPEN -->
+  <section id="appen">
+    <div class="wrap app-grid">
+      <div class="reveal">
+        <span class="eyebrow">Appen</span>
+        <h2>Alt du trenger,<br><em>i lomma</em></h2>
+        <p class="lead" style="margin-top:18px">Planen din bor i appen. Den viser hva du skal gjøre i dag – og husker hvor langt du har kommet.</p>
+        <div class="features" id="features">
+          <div class="feature active"><div class="tile t-lilla"><svg class="i"><use href="#i-calendar"/></svg></div><div><b>Vanekalender</b><span>Dagens vaner, gjøremål, trening og middag – kryss av og se framgangen.</span></div><i class="bar"></i></div>
+          <div class="feature"><div class="tile t-gull"><svg class="i"><use href="#i-headphones"/></svg></div><div><b>Bibelen som lyd</b><span>Lytt gjennom Bibelen på ett år, én del om dagen – rett i appen.</span></div><i class="bar"></i></div>
+          <div class="feature"><div class="tile t-gronn"><svg class="i"><use href="#i-flame"/></svg></div><div><b>Bønn og takknemlighet</b><span>Åndelige praksiser for hver dag, med bønneliste og takkeliste.</span></div><i class="bar"></i></div>
+          <div class="feature"><div class="tile t-lilla"><svg class="i"><use href="#i-dumbbell"/></svg></div><div><b>Treningsprogram</b><span>Én øvelse om gangen, med video, kilo og repetisjoner.</span></div><i class="bar"></i></div>
+          <div class="feature"><div class="tile t-gull"><svg class="i"><use href="#i-hpulse"/></svg></div><div><b>Helse</b><span>Følg vekt, midjemål, hvilepuls, HRV og energi over tid.</span></div><i class="bar"></i></div>
+          <div class="feature"><div class="tile t-gronn"><svg class="i"><use href="#i-book"/></svg></div><div><b>Verd å vite</b><span>Korte artikler om kropp og helse, som HRV og vagusnerven.</span></div><i class="bar"></i></div>
+        </div>
+      </div>
+      <div class="phone-stage reveal d2">
+        <div class="phone"><div class="phone-screen" id="phoneScreen">
+          <img class="on" src="bilder/app-idag.jpg" alt="Vanekalenderen i appen">
+          <img src="bilder/app-bibel.jpg" alt="Bibelen som lyd i appen" loading="lazy">
+          <img src="bilder/app-praksis.jpg" alt="Bønn, Bibelen og takknemlighet i appen" loading="lazy">
+          <img src="bilder/app-trening-okt.jpg" alt="Treningsøkt i appen" loading="lazy">
+          <img src="bilder/app-helse-ny.jpg" alt="Helsemålinger i appen" loading="lazy">
+          <img src="bilder/app-hrv.jpg" alt="Verd å vite-artikkel om HRV i appen" loading="lazy">
+        </div></div>
+        <div class="float chip-float c1"><span class="tile t-gronn" style="width:34px;height:34px;border-radius:11px"><svg class="i" style="width:18px;height:18px"><use href="#i-check"/></svg></span>Dag 47 i Bibelen</div>
+        <div class="float chip-float c2"><span class="tile t-gull" style="width:34px;height:34px;border-radius:11px"><svg class="i" style="width:18px;height:18px"><use href="#i-star"/></svg></span>Ny personlig rekord!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAT OG TRENING -->
+  <section class="white" id="mat-trening">
+    <div class="wrap center head reveal">
+      <span class="eyebrow">Mat og trening</span>
+      <h2>Laget for en <em>vanlig hverdag</em></h2>
+      <p class="lead">Ikke dietter og ekstreme program – men god mat og trening du faktisk klarer å holde på med.</p>
+    </div>
+    <div class="wrap duo">
+      <div class="duo-card reveal">
+        <img src="bilder/mat-bowl.jpg" alt="Fargerik, sunn bolle med grønnsaker" loading="lazy">
+        <div>
+          <span class="eyebrow">Oppskriftsbanken</span>
+          <div class="stat">120+</div>
+          <h3 style="margin-top:8px">middager å velge mellom</h3>
+          <p>Velg vanlig, lavkarbo eller glutenfri – og få en middagsplan for uka med ferdig handleliste. I tillegg frokost, lunsj og kveldsmat.</p>
+          <div class="tags">
+            <span>Kyllingcurry med tomat og yoghurt</span>
+            <span>Ovnsbakt laks med parmesanskorpe</span>
+            <span>Asiatisk bowl med kjøttdeig</span>
+            <span>Lørdagskylling i form</span>
+          </div>
+        </div>
+      </div>
+      <div class="duo-card reveal d1">
+        <img src="bilder/trening-1.jpg" alt="Løper på vei" loading="lazy">
+        <div>
+          <span class="eyebrow">Treningsprogram</span>
+          <h3>Hjemme eller på senter</h3>
+          <p>Et program som passer utstyret og formen din. Hver øvelse har video, appen har tidtaker og pausesignal – og målene øker litt etter hvert som du blir sterkere.</p>
+          <div class="tags"><span>Styrke</span><span>Kondisjon</span><span>4×4-intervaller</span><span>Tøying og mobilitet</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIBELVERS -->
+  <section class="verse-band">
+    <div class="wrap reveal">
+      <blockquote>«Vi er hans verk, skapt i Kristus Jesus <em>til gode gjerninger</em>, som Gud forut har lagt ferdige for oss å vandre i.»</blockquote>
+      <cite>Efeserne 2,10</cite>
+    </div>
+  </section>
+
+  <!-- VERD Å VITE -->
+  <section class="white">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">Verd å vite</span>
+        <h2 style="font-size:clamp(28px,3.6vw,40px)">Kunnskap som gjør det lettere</h2>
+      </div>
+      <div class="articles">
+        <div class="article reveal"><div class="tile t-gronn"><svg class="i"><use href="#i-pulse"/></svg></div><div><b>HRV – hjertefrekvensvariasjon</b><p>Hva de små forskjellene mellom hjerteslagene forteller om stress, søvn og restitusjon – og hvordan du bruker det.</p><small><svg class="i"><use href="#i-book"/></svg>I appen</small></div></div>
+        <div class="article reveal d1"><div class="tile t-lilla"><svg class="i"><use href="#i-wave"/></svg></div><div><b>Vagusnerven</b><p>Forbindelsen mellom hjernen og kroppen som henger sammen med ro, pust, fordøyelse og evnen til å finne balanse igjen.</p><small><svg class="i"><use href="#i-book"/></svg>I appen</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAST NED -->
+  <section id="last-ned">
+    <div class="wrap center head reveal">
+      <span class="eyebrow">Kom i gang</span>
+      <h2>Appen er <em>gratis</em></h2>
+      <p class="lead">Last ned appen og begynn i dag – uansett hvor du bor.</p>
+    </div>
+    <div class="wrap plans" style="grid-template-columns:minmax(0,440px); justify-content:center">
+      <div class="plan featured reveal" style="transform:none">
+        <h3>Tro &amp; Livsstil-appen</h3>
+        <p class="desc">Alt du trenger for ånd, sjel og kropp</p>
+        <div class="price">Gratis</div>
+        <ul>
+          <li><svg class="i"><use href="#i-check"/></svg>Vanekalender for hver dag</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Bibelen som lyd – hele Bibelen på ett år</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Treningsprogram med video av hver øvelse</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Over 120 middager med handleliste</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Helsemålinger over tid</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Fellesskap med andre kristne</li>
+        </ul>
+        <a class="btn btn-primary" href="https://tro-og-livsstil.mvt.so/" target="_blank" rel="noopener">Last ned gratis</a>
+      </div>
+    </div>
+    <div class="wrap install reveal">
+      <h3>Slik får du appen på telefonen</h3>
+      <div class="install-grid">
+        <div class="install-card">
+          <b>iPhone</b>
+          <ol>
+            <li>Trykk «Last ned appen gratis» – appen åpnes i Safari.</li>
+            <li>Trykk på dele-knappen nederst (firkant med pil opp).</li>
+            <li>Velg «Legg til på Hjem-skjerm».</li>
+          </ol>
+        </div>
+        <div class="install-card">
+          <b>Android</b>
+          <ol>
+            <li>Trykk «Last ned appen gratis» – appen åpnes i Chrome.</li>
+            <li>Trykk på de tre prikkene øverst til høyre.</li>
+            <li>Velg «Legg til på startskjermen».</li>
+          </ol>
+        </div>
+      </div>
+      <p class="install-note">Da ligger appen på telefonen sammen med de andre appene dine.</p>
+    </div>
+    <p class="price-note reveal">Lurer du på noe? <a href="#kontakt">Send en melding</a>.</p>
+  </section>
+
+  <!-- OM MEG -->
+  <section class="white" id="om">
+    <div class="wrap about">
+      <div class="about-photo reveal">
+        <div class="frame"><img src="bilder/kjetil.jpg" alt="Kjetil" loading="lazy"></div>
+        <div class="float about-tag"><b>Kjetil</b>Veileder i Tro &amp; Livsstil</div>
+      </div>
+      <div class="reveal d1">
+        <span class="eyebrow">Om meg</span>
+        <h2>Hei, jeg er <em>Kjetil</em></h2>
+        <p class="lead">Jeg har startet Tro &amp; Livsstil fordi jeg tror vi er skapt som hele mennesker – og at tro, tanker og kropp hører sammen.</p>
+        <p style="color:var(--ink-2)">Trening, kosthold og helse er hverdagen min. Gode vaner bygges ikke på én dag, men med små steg, uke for uke. Det er det appen skal hjelpe deg med.</p>
+        <p style="color:var(--ink-2)">Jeg lager programmene og middagsplanene i appen selv.</p>
+        <div class="creds">
+          <span><svg class="i"><use href="#i-dumbbell"/></svg>Personlig trener</span>
+          <span><svg class="i"><use href="#i-lungs"/></svg>Metabolsk testing</span>
+          <span><svg class="i"><use href="#i-cross"/></svg>Kristen veileder</span>
+        </div>
+        <p class="signature">Kjetil</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPØRSMÅL -->
+  <section>
+    <div class="wrap faq-grid">
+      <div class="reveal">
+        <span class="eyebrow">Spørsmål og svar</span>
+        <h2>Lurer du <em>på noe?</em></h2>
+        <p class="lead" style="margin-top:18px">Finner du ikke svaret her, er det bare å <a href="#kontakt" style="color:var(--lilla); font-weight:600">sende en melding</a>.</p>
+      </div>
+      <div class="faq">
+        <details class="reveal"><summary>Koster appen noe?</summary><p>Nei. Appen er gratis å laste ned.</p></details>
+        <details class="reveal"><summary>Hva finnes i appen?</summary><p>Vanekalender, Bibelen som lyd, bønn og takknemlighet, treningsprogram, middagsplan med handleliste og helsemålinger.</p></details>
+        <details class="reveal"><summary>Er det et fellesskap?</summary><p>Ja. I appen er du sammen med andre kristne som også vil ta vare på troen, helsen og hverdagen. Det er ingen faste møter – du er med når det passer deg.</p></details>
+        <details class="reveal"><summary>Må jeg være i god form?</summary><p>Nei. Du starter der du er, enten du er helt nybegynner eller trener mye fra før.</p></details>
+        <details class="reveal"><summary>Må jeg være kristen?</summary><p>Tro &amp; Livsstil bygger på kristen tro, og det preger innholdet. Du er hjertelig velkommen uansett hvor du står.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt" style="padding-top:20px">
+    <div class="wrap">
+      <div class="contact reveal">
+        <div>
+          <span class="eyebrow">Kontakt</span>
+          <h2>Har du <em style="color:var(--gull-2)">spørsmål?</em></h2>
+          <p class="lead">Lurer du på noe om appen? Skriv noen ord, så svarer jeg så fort jeg kan.</p>
+          <a class="contact-line" href="mailto:tro.og.livsstil@gmail.com"><span><svg class="i"><use href="#i-mail"/></svg></span>tro.og.livsstil@gmail.com</a>
+        </div>
+        <form id="contactForm">
+          <label>Navn<input name="navn" required autocomplete="name"></label>
+          <label>Det gjelder
+            <select name="tilbud" id="interest">
+              <option>Spørsmål om appen</option>
+              <option>Noe annet</option>
+            </select>
+          </label>
+          <label>Melding<textarea name="melding" placeholder="Skriv spørsmålet ditt her"></textarea></label>
+          <button class="btn btn-light" type="submit">Send melding <svg class="i"><use href="#i-arrow"/></svg></button>
+          <p class="form-note">Meldingen åpnes i e-postprogrammet ditt, klar til å sende.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="#"><span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M12 3.5v17M6 9h12"/></svg></span>Tro &amp; Livsstil</a>
+    <nav><a href="#slik">Slik fungerer det</a><a href="#appen">Appen</a><a href="#last-ned">Last ned</a><a href="#kontakt">Kontakt</a></nav>
+    <span>© <span id="yr"></span> Tro &amp; Livsstil</span>
+  </div>
+</footer>
+
+<div class="mobile-cta" id="mobileCta"><a class="btn btn-primary" href="https://tro-og-livsstil.mvt.so/" target="_blank" rel="noopener">Last ned appen gratis <svg class="i"><use href="#i-arrow"/></svg></a></div>
+
+<script>
+  // Meny
+  const hdr = document.getElementById('top'), menuBtn = document.getElementById('menuBtn'), links = document.getElementById('navLinks');
+  const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 10);
+  addEventListener('scroll', onScroll, { passive:true }); onScroll();
+  menuBtn.addEventListener('click', () => { const o = links.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); });
+  links.addEventListener('click', e => { if (e.target.closest('a')) { links.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); } });
+
+  // Appen: bytt skjermbilde
+  const shots = [...document.querySelectorAll('#phoneScreen > *')], feats = [...document.querySelectorAll('.feature')];
+  let cur = 0, timer;
+  function show(i){ cur = i; shots.forEach((s, k) => s.classList.toggle('on', k === i)); feats.forEach((f, k) => { f.classList.remove('active'); if (k === i) { void f.offsetWidth; f.classList.add('active'); } }); }
+  function auto(){ clearInterval(timer); timer = setInterval(() => show((cur + 1) % shots.length), 4500); }
+  feats.forEach((f, i) => f.addEventListener('click', () => { show(i); auto(); }));
+  auto();
+
+  // Velg tilbud fra knappene
+  document.querySelectorAll('[data-interest]').forEach(a => a.addEventListener('click', () => {
+    const sel = document.getElementById('interest');
+    [...sel.options].forEach(o => { if (o.textContent === a.dataset.interest) sel.value = o.value; });
+  }));
+
+  // Kontaktskjema → e-post
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const subject = 'Tro & Livsstil – ' + f.get('tilbud');
+    const body = `Hei Kjetil!\n\n${f.get('melding') || ''}\n\nDet gjelder: ${f.get('tilbud')}\n\nHilsen ${f.get('navn')}`;
+    location.href = 'mailto:tro.og.livsstil@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+
+  // Fast nedlastingsknapp på mobil
+  const mcta = document.getElementById('mobileCta'), heroEnd = document.querySelector('.hero');
+  const onCta = () => mcta.classList.toggle('show', scrollY > heroEnd.offsetHeight - 120 && (innerHeight + scrollY) < document.documentElement.scrollHeight - 200);
+  addEventListener('scroll', onCta, { passive:true }); onCta();
+
+  // Inn-animasjon
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold:.12, rootMargin:'0px 0px -40px 0px' }) : null;
+  document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
