@@ -130,7 +130,10 @@
   @media (max-width:920px){
     .hero{ padding-top:116px; padding-bottom:80px; }
     .hero-grid{ grid-template-columns:1fr; gap:46px; }
-    .hero-verse{ display:none; }
+    /* Bibelverset under bildet på mobil (absolutt, så telefonen fortsatt sitter på bildet) */
+    .hero-visual{ margin-bottom:230px; }
+    .hero-verse{ left:0; right:0; bottom:auto; top:calc(100% + 56px); max-width:none; }
+    .hero-verse p{ font-size:16.5px; }
     .hero-visual{ max-width:520px; width:100%; margin:0 auto; padding-left:40px; }
     .hero-photo{ transform:none; aspect-ratio:4/4.4; }
     .hero-visual .hero-phone{ left:0; bottom:-30px; width:150px; padding:6px; border-radius:26px; }
@@ -223,6 +226,8 @@
   .chip-float{ position:absolute; z-index:2; padding:12px 16px; font-size:13.5px; font-weight:600; display:flex; align-items:center; gap:10px; }
   .chip-float.c1{ left:0; top:52%; }
   .chip-float.c2{ right:0; bottom:110px; }
+  .chip-float{ transition:opacity .35s ease, transform .35s ease; }
+  .chip-float.off{ opacity:0; transform:translateY(8px); pointer-events:none; }
   @media (max-width:1020px){ .app-grid{ grid-template-columns:1fr; gap:40px; } .chip-float.c1{ left:2%; } .chip-float.c2{ right:2%; } }
   @media (max-width:520px){ .phone{ width:262px; } .chip-float{ display:none; } }
 
@@ -234,7 +239,7 @@
   .duo-card::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,20,15,.05) 0%, rgba(10,20,15,.55) 40%, rgba(10,20,15,.92) 82%); z-index:1; }
   .duo-card > div{ position:relative; z-index:2; }
   .duo-card .eyebrow{ color:var(--gull-2); }
-  .duo-card h3{ font-size:34px; font-weight:500; color:#fff; }
+  .duo-card h3{ font-size:34px; font-weight:500; color:#fff; hyphens:manual; -webkit-hyphens:manual; }
   .duo-card p{ color:rgba(255,255,255,.85); margin-top:12px; max-width:460px; }
   .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
   .tags span{ font-size:13.5px; padding:8px 13px; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(6px); }
@@ -484,7 +489,7 @@
       <div class="reveal">
         <span class="eyebrow">Ånd · sjel · kropp</span>
         <h1>Én app for tro, <em>helse og gode vaner</em></h1>
-        <p class="lead">For kristne som ønsker inspirasjon til å leve et helhetlig liv – der du tar vare på både ånd, sjel og kropp. Bibelen som lyd, bønn, vaner, trening og middager, samlet i én app.</p>
+        <p class="lead">For kristne som ønsker inspirasjon til å leve et helhetlig liv – der du tar vare på både ånd, sjel og kropp. Bibelen som lyd, bønn, vaner, trening og oppskrifter, samlet i én app.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="https://tro-og-livsstil.mvt.so/" target="_blank" rel="noopener">Last ned appen <svg class="i"><use href="#i-arrow"/></svg></a>
           <a class="btn btn-ghost" href="#appen">Se hva du får</a>
@@ -493,13 +498,13 @@
           <li><span class="tile t-lilla"><svg class="i"><use href="#i-headphones"/></svg></span>Bibelen</li>
           <li><span class="tile t-gull"><svg class="i"><use href="#i-calendar"/></svg></span>Vaner</li>
           <li><span class="tile t-gronn"><svg class="i"><use href="#i-dumbbell"/></svg></span>Trening</li>
-          <li><span class="tile t-lilla"><svg class="i"><use href="#i-bowl"/></svg></span>Middager</li>
+          <li><span class="tile t-lilla"><svg class="i"><use href="#i-bowl"/></svg></span>Oppskrifter</li>
           <li><span class="tile t-gull"><svg class="i"><use href="#i-users"/></svg></span>Fellesskap</li>
         </ul>
       </div>
       <div class="hero-visual reveal d2">
         <div class="hero-photo"><img src="bilder/hero.jpg" alt="Glad kvinne med blomst mot blå himmel"></div>
-        <div class="phone hero-phone" aria-hidden="true"><div class="phone-screen"><img class="on" src="bilder/app-hjem.jpg" alt=""></div></div>
+        <div class="phone hero-phone" aria-hidden="true"><div class="phone-screen" id="heroScreen"><img class="on" src="bilder/app-hjem.jpg" alt=""><img src="bilder/app-idag.jpg" alt="" loading="lazy"><img src="bilder/app-bibel.jpg" alt="" loading="lazy"><img src="bilder/app-praksis.jpg" alt="" loading="lazy"><img src="bilder/app-trening-okt.jpg" alt="" loading="lazy"><img src="bilder/app-helse-ny.jpg" alt="" loading="lazy"><img src="bilder/app-hrv.jpg" alt="" loading="lazy"></div></div>
         <div class="float hero-verse">
           <p>«Jeg takker deg fordi jeg er skapt på underfullt vis. Underfulle er dine verk, det vet jeg så vel.»</p>
           <small>Salme 139,14</small>
@@ -534,7 +539,7 @@
         <span class="num">03</span>
         <div class="tile t-gronn"><svg class="i"><use href="#i-pulse"/></svg></div>
         <h3>Kropp</h3>
-        <p>Trening, kosthold, søvn og helse. Treningsprogram og middagsplan som passer livet ditt – ikke et perfekt liv.</p>
+        <p>Trening, kosthold, søvn og helse. Treningsprogram og oppskrifter med ekte mat som passer livet ditt – ikke et perfekt liv.</p>
         <p class="verse">«Kroppen deres er et tempel for Den hellige ånd.» — 1 Kor 6,19</p>
       </div>
     </div>
@@ -605,8 +610,8 @@
           <img src="bilder/app-helse-ny.jpg" alt="Helsemålinger i appen" loading="lazy">
           <img src="bilder/app-hrv.jpg" alt="Verd å vite-artikkel om HRV i appen" loading="lazy">
         </div></div>
-        <div class="float chip-float c1"><span class="tile t-gronn" style="width:34px;height:34px;border-radius:11px"><svg class="i" style="width:18px;height:18px"><use href="#i-check"/></svg></span>Dag 47 i Bibelen</div>
-        <div class="float chip-float c2"><span class="tile t-gull" style="width:34px;height:34px;border-radius:11px"><svg class="i" style="width:18px;height:18px"><use href="#i-star"/></svg></span>Ny personlig rekord!</div>
+        <div class="float chip-float c1 off"><span class="tile t-gronn" style="width:34px;height:34px;border-radius:11px"><svg class="i" style="width:18px;height:18px"><use href="#i-check"/></svg></span>Dag 47 i Bibelen</div>
+        <div class="float chip-float c2 off"><span class="tile t-gull" style="width:34px;height:34px;border-radius:11px"><svg class="i" style="width:18px;height:18px"><use href="#i-star"/></svg></span>Ny personlig rekord!</div>
       </div>
     </div>
   </section>
@@ -616,16 +621,16 @@
     <div class="wrap center head reveal">
       <span class="eyebrow">Mat og trening</span>
       <h2>Laget for en <em>vanlig hverdag</em></h2>
-      <p class="lead">Ikke dietter og ekstreme program – men god mat og trening du faktisk klarer å holde på med.</p>
+      <p class="lead">Ikke dietter og ekstreme program – men ekte mat og trening du faktisk klarer å holde på med.</p>
     </div>
     <div class="wrap duo">
       <div class="duo-card reveal">
         <img src="bilder/mat-bowl.jpg" alt="Fargerik, sunn bolle med grønnsaker" loading="lazy">
         <div>
-          <span class="eyebrow">Oppskriftsbanken</span>
+          <span class="eyebrow">Ekte mat skapt av Gud</span>
           <div class="stat">120+</div>
-          <h3 style="margin-top:8px">middager å velge mellom</h3>
-          <p>Velg vanlig, lavkarbo eller glutenfri – og få en middagsplan for uka med ferdig handleliste. I tillegg frokost, lunsj og kveldsmat.</p>
+          <h3 style="margin-top:8px">oppskrifter å velge mellom</h3>
+          <p>Frokost, lunsj, middag og kveldsmat – vanlig, lavkarbo eller glutenfri. Få en plan for uka med ferdig handleliste.</p>
           <div class="tags">
             <span>Kyllingcurry med tomat og yoghurt</span>
             <span>Ovnsbakt laks med parmesanskorpe</span>
@@ -683,7 +688,7 @@
           <li><svg class="i"><use href="#i-check"/></svg>Vanekalender for hver dag</li>
           <li><svg class="i"><use href="#i-check"/></svg>Bibelen som lyd – hele Bibelen på ett år</li>
           <li><svg class="i"><use href="#i-check"/></svg>Treningsprogram med video av hver øvelse</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Over 120 middager med handleliste</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Over 120 oppskrifter med handleliste</li>
           <li><svg class="i"><use href="#i-check"/></svg>Helsemålinger over tid</li>
           <li><svg class="i"><use href="#i-check"/></svg>Fellesskap med andre kristne</li>
         </ul>
@@ -745,7 +750,7 @@
       </div>
       <div class="faq">
         <details class="reveal"><summary>Koster appen noe?</summary><p>Nei. Appen er gratis å laste ned.</p></details>
-        <details class="reveal"><summary>Hva finnes i appen?</summary><p>Vanekalender, Bibelen som lyd, bønn og takknemlighet, treningsprogram, middagsplan med handleliste og helsemålinger.</p></details>
+        <details class="reveal"><summary>Hva finnes i appen?</summary><p>Vanekalender, Bibelen som lyd, bønn og takknemlighet, treningsprogram, oppskrifter med handleliste og helsemålinger.</p></details>
         <details class="reveal"><summary>Er det et fellesskap?</summary><p>Ja. I appen er du sammen med andre kristne som også vil ta vare på troen, helsen og hverdagen. Det er ingen faste møter – du er med når det passer deg.</p></details>
         <details class="reveal"><summary>Må jeg være i god form?</summary><p>Nei. Du starter der du er, enten du er helt nybegynner eller trener mye fra før.</p></details>
         <details class="reveal"><summary>Må jeg være kristen?</summary><p>Tro &amp; Livsstil bygger på kristen tro, og det preger innholdet. Du er hjertelig velkommen uansett hvor du står.</p></details>
@@ -801,7 +806,20 @@
   // Appen: bytt skjermbilde
   const shots = [...document.querySelectorAll('#phoneScreen > *')], feats = [...document.querySelectorAll('.feature')];
   let cur = 0, timer;
-  function show(i){ cur = i; shots.forEach((s, k) => s.classList.toggle('on', k === i)); feats.forEach((f, k) => { f.classList.remove('active'); if (k === i) { void f.offsetWidth; f.classList.add('active'); } }); }
+  // Telefonen i toppbildet bytter skjermbilde på mobil (står stille på PC og ved redusert bevegelse)
+  (function(){
+    const hs = [...document.querySelectorAll('#heroScreen img')];
+    const mobil = matchMedia('(max-width:920px)'), rolig = matchMedia('(prefers-reduced-motion: reduce)');
+    let n = 0, t = null;
+    const start = () => { clearInterval(t); t = null;
+      if (!mobil.matches || rolig.matches) { n = 0; hs.forEach((im, k) => im.classList.toggle('on', k === 0)); return; }
+      t = setInterval(() => { n = (n + 1) % hs.length; hs.forEach((im, k) => im.classList.toggle('on', k === n)); }, 3200); };
+    start(); mobil.addEventListener('change', start);
+  })();
+
+  // Merkene ved telefonen vises bare når de passer: Bibelen (1) og treningsøkta (3)
+  const chipBible = document.querySelector('.chip-float.c1'), chipPr = document.querySelector('.chip-float.c2');
+  function show(i){ cur = i; shots.forEach((s, k) => s.classList.toggle('on', k === i)); if (chipBible) chipBible.classList.toggle('off', i !== 1); if (chipPr) chipPr.classList.toggle('off', i !== 3); feats.forEach((f, k) => { f.classList.remove('active'); if (k === i) { void f.offsetWidth; f.classList.add('active'); } }); }
   function auto(){ clearInterval(timer); timer = setInterval(() => show((cur + 1) % shots.length), 4500); }
   feats.forEach((f, i) => f.addEventListener('click', () => { show(i); auto(); }));
   auto();
